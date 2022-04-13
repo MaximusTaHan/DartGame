@@ -66,54 +66,42 @@
     {
         CheckIfZero();
 
-        bool found = false;
         ViewPlayers();
 
         Console.WriteLine("Which player would you like to Edit?");
-        string input= Console.ReadLine();
+        string input = Console.ReadLine();
 
-        foreach(Player player in players)
-        {
-            if (player.Name == input)
-            {
-                Console.WriteLine($"\nChoose a new name for player: {player.Name}");
-                player.Name = Console.ReadLine();
-                found = true;
+        int i = players.FindIndex(player => player.Name == input);
 
-                Console.WriteLine($"You chose: {player.Name}");
-            }
-        }
-        if(!found)
-        {
+        if(i == -1)
             Console.WriteLine("\nCould not find a player with that name");
-        }
+        else
+        {
+            Console.WriteLine($"\nChoose a new name for player: {players[i].Name}");
+            players[i].Name = Console.ReadLine();
 
+            Console.WriteLine($"You chose: {players[i].Name}");
+        }
     }
 
     private void RemoveName()
     {
         CheckIfZero();
 
-        bool found = false;
         ViewPlayers();
 
         Console.WriteLine("Which player would you like to Remove?");
         string input = Console.ReadLine();
 
-        foreach (Player player in players)
-        {
-            if (player.Name == input)
-            {
-                players.Remove(player);
-                found = true;
+        int i = players.FindIndex(player => player.Name == input);
 
-                Console.WriteLine($"Removed player: {player.Name}");
-                return;
-            }
-        }
-        if (!found)
-        {
+        if (i == -1)
             Console.WriteLine("\nCould not find a player with that name");
+        else
+        {
+            players.Remove(players[i]);
+
+            Console.WriteLine("\nPlayer was removed");
         }
 
     }

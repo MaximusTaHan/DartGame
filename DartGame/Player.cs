@@ -15,14 +15,13 @@
         {
             score += turn.GetScore();
         }
+
         if (score > 301)
-        {
             turns.RemoveAt(turns.Count - 1);
-        }
+
         if(score == 301)
-        {
             PrintTurns();
-        }
+
         return score;
     }
     private void PrintTurns()

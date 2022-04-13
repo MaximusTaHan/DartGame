@@ -31,9 +31,7 @@
 
     private int RandomThrow()
     {
-        int points = 0;
-        Random random = new Random();
-        points = random.Next(0, 21);
+        int points = Random.Shared.Next(0, 21);
         Console.WriteLine($"Dart points: {points}");
         return points;
     }
@@ -45,42 +43,30 @@
         string input = Console.ReadLine();
 
         int result;
-        int chance = 0;
         int points = 0;
 
         result = ValidateInput(input);
+        var i = Array.IndexOf(dartBoard, result);
 
-        Random random = new Random();
-        chance = random.Next(0, 101);
+        int chance = Random.Shared.Next(0, 101);
 
         Console.WriteLine("Chance: " + chance);
+
         if(chance >= 0 && chance <= 59)
-        {
-            for (int i = 0; i < 20; i++)
-            {
-                if (result == dartBoard[i])
-                {
-                    points = dartBoard[i];
-                }
-            }
-        }
+            points = dartBoard[i];
 
         else if(chance >= 60 && chance <= 89)
-        {
             points = OffByOne(result);
-        }
 
         else if(chance >= 90 && chance <= 94)
-        {
-            points = random.Next(0,21);
-        }
+            points = Random.Shared.Next(0,21);
+
 
         else if(chance >= 95 && chance <= 100)
-        {
             points = 0;
-        }
 
         Console.WriteLine("Dart points: " + points);
+
         return points;
     }
 
@@ -89,10 +75,10 @@
         int result;
         while (!int.TryParse(input, out result))
         {
-
             Console.WriteLine("Please enter a valid number");
             input = Console.ReadLine();
         }
+
         if (result < 0 || result > 20)
         {
             input = "";
@@ -103,44 +89,18 @@
 
     private int OffByOne(int result)
     {
-        int points = 0;
-        Random random = new Random();
-        random.Next(0, 2);
-        if (random.Next(0, 2) == 0)
-        {
-            for (int i = 0; i < 20; i++)
-            {
-                if (result == dartBoard[i])
-                {
-                    if (i - 1 < 0)
-                    {
-                        points = dartBoard[dartBoard.Length - 1];
-                    }
-                    else
-                    {
-                        points = dartBoard[i - 1];
-                    }
-                }
-            }
-        }
-        else
-        {
-            for (int i = 0; i < 20; i++)
-            {
-                if (result == dartBoard[i])
-                {
-                    if (i + 1 > 19)
-                    {
-                        points = dartBoard[0];
-                    }
-                    else
-                    {
-                        points = dartBoard[i + 1];
-                    }
-                }
-            }
-        }
+        //get index that holds the inputted points
+        var i = Array.IndexOf(dartBoard, result);
 
-        return points;
+        if (i == -1)
+            return 0;
+
+        //Shared recommended use of Random if you dont need control over seed
+        if (Random.Shared.Next(0, 2) == 0)
+            // Return ternary: if 1 is smaller than 0 return Last index, else return index -1
+            return i - 1 < 0 ? dartBoard[^1] : dartBoard[i - 1];
+
+        else
+            return i + 1 > 19 ? dartBoard[0] : dartBoard[i + 1];
     }
 }

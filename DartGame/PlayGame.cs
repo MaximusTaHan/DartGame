@@ -7,7 +7,7 @@
         while(won == false)
         {
             int[] darts = new int[3];
-            int currentScore = 0;
+            int currentScore;
             foreach (Player player in players)
             {
                 Console.Clear();
@@ -29,32 +29,37 @@
                     }
 
                     player.AddTurn(darts[0], darts[1], darts[2]);
-
                 }
 
                 currentScore = player.Calculatepoints();
 
-                if (currentScore == 301)
-                {
-                    won = true;
-                    ConcludeGame(currentPlayer);
-                    return;
-                }
-                else
-                {
-                    Console.Clear();
-                    Console.WriteLine($"\n\nPlayer: {currentPlayer}, total Score: {currentScore}");
-
-
-                    Console.WriteLine("\nTurn recap: ");
-                    Console.WriteLine($"\nFirst throw: {darts[0]}");
-                    Console.WriteLine($"Second throw: {darts[1]}");
-                    Console.WriteLine($"Third throw: {darts[2]}");
-
-                    Console.WriteLine("\nPress any key to Change Player");
-                    Console.ReadKey(true);
-                }
+                //Checks win con, or prints points gained this turn
+                EndOfTurn(darts, currentScore);
             }
+        }
+    }
+
+    private void EndOfTurn(int[] darts, int currentScore)
+    {
+        if (currentScore == 301)
+        {
+            won = true;
+            ConcludeGame(currentPlayer);
+            return;
+        }
+        else
+        {
+            Console.Clear();
+            Console.WriteLine($"\n\nPlayer: {currentPlayer}, total Score: {currentScore}");
+
+
+            Console.WriteLine("\nTurn recap: ");
+            Console.WriteLine($"\nFirst throw: {darts[0]}");
+            Console.WriteLine($"Second throw: {darts[1]}");
+            Console.WriteLine($"Third throw: {darts[2]}");
+
+            Console.WriteLine("\nPress any key to Change Player");
+            Console.ReadKey(true);
         }
     }
 

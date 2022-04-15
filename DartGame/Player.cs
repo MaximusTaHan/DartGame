@@ -12,9 +12,7 @@
     {
         int score = 0;
         foreach(Turns turn in turns)
-        {
             score += turn.GetScore();
-        }
 
         if (score > 301)
             turns.RemoveAt(turns.Count - 1);
@@ -27,8 +25,6 @@
     private void PrintTurns()
     {
         foreach(Turns turn in turns)
-        {
             Console.WriteLine(turn.ToString());
-        }
     }
 }

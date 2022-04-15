@@ -16,19 +16,10 @@
                 currentScore = player.Calculatepoints();
                 Console.WriteLine($"\n\nPlayer: {currentPlayer}, total Score: {currentScore}\n\n");
                 if (player.Name == "Computer")
-                {
-                    darts = GetComputerPoints(player);
-                }
+                   darts = GetComputerPoints(player, darts);
                 else
                 {
-                    for (int dart = 0; dart < 3; dart++)
-                    {
-                        Console.WriteLine($"Dart: {dart +1}");
-                        DartBoard dartBoard = new();
-                        darts[dart] = dartBoard.ThrowChoice();
-                    }
-
-                    player.AddTurn(darts[0], darts[1], darts[2]);
+                    darts = PlayerTurn(player, darts);
                 }
 
                 currentScore = player.Calculatepoints();
@@ -71,10 +62,20 @@
         Console.ReadKey(true);
     }
 
-    private int[] GetComputerPoints(Player player)
+    private int[] PlayerTurn(Player player, int[]darts)
     {
-        int[] darts = new int[3];
+        for (int dart = 0; dart < 3; dart++)
+        {
+            Console.WriteLine($"Dart: {dart +1}");
+            DartBoard dartBoard = new();
+            darts[dart] = dartBoard.ThrowChoice();
+        }
 
+        player.AddTurn(darts[0], darts[1], darts[2]);
+        return darts;
+    }
+    private int[] GetComputerPoints(Player player, int[] darts)
+    {
         Random random = new Random();
         darts[0] = random.Next(0, 21);
         darts[1] = random.Next(0, 21);

@@ -4,10 +4,9 @@
     
     internal void Menu()
     {
-        bool closeApp = false;
         Console.WriteLine("\n\nWelcome to your Dart Game!\n");
 
-        while (closeApp == false)
+        while (true)
         {
             Console.WriteLine("\nPLAYER MENU");
             Console.WriteLine("\nPress 0 to Exit the application");
@@ -28,7 +27,6 @@
             switch (menuInput)
             {
                 case "0":
-                    closeApp = true;
                     Environment.Exit(0);
                     break;
                 case "1":
@@ -59,7 +57,6 @@
 
         PlayGame playGame = new();
         playGame.StartGame(players);
-
     }
 
     private void UpdateName()
@@ -111,9 +108,7 @@
         Console.WriteLine();
 
         for (int i = 0; i < players.Count; i++)
-        {
             Console.WriteLine($"Player {i + 1}: {players[i].Name}");
-        }
     }
 
     private void AddPlayers()
@@ -125,13 +120,9 @@
         string input = Console.ReadLine();
 
         if(input == "0")
-        {
-            Menu();
-        }
+            return;
         if(input == "1")
-        {
             players.Add(new Player() { Name = "Computer"});
-        }
         else
         {
             players.Add(new Player() { Name = input });
@@ -145,7 +136,7 @@
         if (players.Count >= 4)
         {
             Console.WriteLine("Too many players, max number of player allowed is 4");
-            Menu();
+            return;
         }
     }
     private void CheckIfZero()
@@ -153,7 +144,7 @@
         if (players.Count == 0)
         {
             Console.WriteLine("\nPlease add a player before continuing");
-            Menu();
+            return;
         }
     }
 }

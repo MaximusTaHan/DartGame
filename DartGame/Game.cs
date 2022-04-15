@@ -6,6 +6,7 @@
     {
         Console.WriteLine("\n\nWelcome to your Dart Game!\n");
 
+        //Runs untill input is 0
         while (true)
         {
             Console.WriteLine("\nPLAYER MENU");
@@ -17,12 +18,6 @@
             Console.WriteLine("Press 5 to Start the Game!");
 
             string menuInput = Console.ReadLine();
-
-            while (string.IsNullOrEmpty(menuInput))
-            {
-                Console.WriteLine("\nInvalid Command. Please type a number from 0 to 5.\n");
-                menuInput = Console.ReadLine();
-            }
 
             switch (menuInput)
             {
@@ -45,6 +40,9 @@
                     InitializeGameStart();
                     players.Clear();
                     break;
+                default:
+                    Console.WriteLine("Please choose a valid option");
+                    break;
             }
         }
 
@@ -52,16 +50,20 @@
 
     private void InitializeGameStart()
     {
-        MaxPlayerCheck();
-        CheckIfZero();
+        if (MaxPlayerCheck())
+            return;
+        if (CheckIfZero())
+            return;
 
+        //starts game with players names set
         PlayGame playGame = new();
         playGame.StartGame(players);
     }
 
     private void UpdateName()
     {
-        CheckIfZero();
+        if(CheckIfZero())
+            return;
 
         ViewPlayers();
 
@@ -83,7 +85,8 @@
 
     private void RemoveName()
     {
-        CheckIfZero();
+        if(CheckIfZero())
+            return;
 
         ViewPlayers();
 
@@ -113,7 +116,9 @@
 
     private void AddPlayers()
     {
-        MaxPlayerCheck();
+        if (MaxPlayerCheck())
+            return;
+
         Console.Clear();
         Console.WriteLine("Enter your Name (or type 1 to add a Computer)");
         Console.WriteLine("Type 0 to Return to Menu");
@@ -131,20 +136,22 @@
 
     }
 
-    private void MaxPlayerCheck()
+    private bool MaxPlayerCheck()
     {
         if (players.Count >= 4)
         {
             Console.WriteLine("Too many players, max number of player allowed is 4");
-            return;
+            return true;
         }
+        return false;
     }
-    private void CheckIfZero()
+    private bool CheckIfZero()
     {
         if (players.Count == 0)
         {
             Console.WriteLine("\nPlease add a player before continuing");
-            return;
+            return true;
         }
+        return false;
     }
 }

@@ -2,6 +2,7 @@
 {
     private int[] dartBoard = new int[20]
         {20,1,18,4,13,6,10,15,2,17,3,19,7,16,8,11,14,9,12,5};
+
     internal int ThrowChoice()
     {
         int points = 0;
@@ -12,7 +13,7 @@
 
         string input = Console.ReadLine();
 
-        while(!(input == "1" || input == "2" || input == "0"))
+        while (!(input == "1" || input == "2" || input == "0"))
         {
             Console.WriteLine("Please enter 1 or 2");
             input = Console.ReadLine();
@@ -52,17 +53,17 @@
 
         Console.WriteLine("Chance: " + chance);
 
-        if(chance >= 0 && chance <= 59)
+        if (chance >= 0 && chance <= 59)
             points = dartBoard[i];
 
-        else if(chance >= 60 && chance <= 89)
+        else if (chance >= 60 && chance <= 89)
             points = OffByOne(result);
 
-        else if(chance >= 90 && chance <= 94)
-            points = Random.Shared.Next(0,21);
+        else if (chance >= 90 && chance <= 94)
+            points = Random.Shared.Next(0, 21);
 
 
-        else if(chance >= 95 && chance <= 100)
+        else if (chance >= 95 && chance <= 100)
             points = 0;
 
         Console.WriteLine("Dart points: " + points);

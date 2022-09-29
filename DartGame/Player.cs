@@ -8,6 +8,7 @@
         Turns turn = new(dartOne, dartTwo, dartThree);
         turns.Add(turn);
     }
+
     public int Calculatepoints()
     {
         int score = 0;
@@ -22,6 +23,7 @@
 
         return score;
     }
+
     private void PrintTurns()
     {
         foreach(Turns turn in turns)

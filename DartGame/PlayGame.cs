@@ -2,6 +2,7 @@
 {
     private string currentPlayer;
     bool won = false;
+
     internal void StartGame(List<Player> players)
     {
         while(won == false)
@@ -74,6 +75,7 @@
         player.AddTurn(darts[0], darts[1], darts[2]);
         return darts;
     }
+
     private int[] GetComputerPoints(Player player, int[] darts)
     {
         Random random = new Random();
